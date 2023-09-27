@@ -29,7 +29,7 @@ def generate_launch_description():
     default_urdf_model_path = os.path.join(get_package_share_directory('turtlebot3_description'), urdf_file_path)
     sdf_model_path = os.path.join(get_package_share_directory('turtlebot3_gazebo'), sdf_model_path)
     nav2_params_path = os.path.join(get_package_share_directory('turtlebot3_navigation2'), nav2_params_path)
-    launch_file_dir = os.path.join(get_package_share_directory('turtlebot3_gazebo'), 'launch')
+    # launch_file_dir = os.path.join(get_package_share_directory('turtlebot3_gazebo'), 'launch')
 
     # Launch configuration variables specific to simulation
     namespace = LaunchConfiguration('namespace')
