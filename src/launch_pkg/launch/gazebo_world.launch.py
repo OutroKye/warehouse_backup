@@ -21,7 +21,7 @@ def generate_launch_description():
 
     # Pose where we want to spawn the robot
     spawn_x_val = '0.0'
-    spawn_y_val = '1.0'
+    spawn_y_val = '0.0'
     spawn_z_val = '0.0'
     spawn_yaw_val = '0.0'
 
@@ -29,6 +29,7 @@ def generate_launch_description():
     default_urdf_model_path = os.path.join(get_package_share_directory('turtlebot3_description'), urdf_file_path)
     sdf_model_path = os.path.join(get_package_share_directory('turtlebot3_gazebo'), sdf_model_path)
     nav2_params_path = os.path.join(get_package_share_directory('turtlebot3_navigation2'), nav2_params_path)
+    gazebo_ros = get_package_share_directory('gazebo_ros')
     # launch_file_dir = os.path.join(get_package_share_directory('turtlebot3_gazebo'), 'launch')
 
     # Launch configuration variables specific to simulation
@@ -95,18 +96,30 @@ def generate_launch_description():
         description='Full path to world model file to load'
     )
 
+    # # Specify the actions
+    # start_gazebo_server_cmd = ExecuteProcess(
+    #     cmd=['gzserver', '--verbose', '-s', 'libgazebo_ros_init.so', '-s', 'libgazebo_ros_factory.so', world],
+    #     cwd=[aws_small_warehouse_dir],
+    #     output='screen'
+    # )
+
+    # start_gazebo_client_cmd = ExecuteProcess(
+    #     condition=IfCondition(PythonExpression(['not ', headless])),
+    #     cmd=['gzclient'],
+    #     cwd=[aws_small_warehouse_dir],
+    #     output='screen'
+    # )
+
     # Specify the actions
-    start_gazebo_server_cmd = ExecuteProcess(
-        cmd=['gzserver', '--verbose', '-s', 'libgazebo_ros_init.so', '-s', 'libgazebo_ros_factory.so', world],
-        cwd=[aws_small_warehouse_dir],
-        output='screen'
+    start_gazebo_server_cmd = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(gazebo_ros, 'launch', 'gzserver.launch.py'))
     )
 
-    start_gazebo_client_cmd = ExecuteProcess(
-        condition=IfCondition(PythonExpression(['not ', headless])),
-        cmd=['gzclient'],
-        cwd=[aws_small_warehouse_dir],
-        output='screen'
+    start_gazebo_client_cmd = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(gazebo_ros, 'launch', 'gzclient.launch.py')),
+        condition=IfCondition(PythonExpression(['not ', headless]))
     )
 
     # Launch the robot

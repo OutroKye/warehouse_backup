@@ -2,6 +2,24 @@
 Changelog for package turtlebot3_simulations
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+2.2.6 (2202-05-26)
+------------------
+* ROS2 Humble Hawksbill supported
+
+2.2.5 (2021-08-25)
+------------------
+* Release for ROS2 Rolling
+* Contributors: Will Son
+
+2.2.4 (2021-06-14)
+------------------
+* Release for ROS2 Galactic
+* Separate world and robot models(#162)
+* Clean up unncessary files
+* Use turtlebot3_common mesh modeling
+* Independent turtlebot3_simulations package
+* Contributors: Joep Tool, Will Son
+
 2.2.3 (2021-04-12)
 ------------------
 * Update required keyword arguments
